@@ -14,7 +14,7 @@ const products = [
     color: 'Grey',
     fit: 'Classic',
     price: 700,
-    size: 43,
+    size: '43',
     description: 'An iconic suit.',
   },
   {
@@ -25,7 +25,7 @@ const products = [
     color: 'Navy Blue',
     fit: 'Classic',
     price: 700,
-    size: 41,
+    size: '41',
     description: 'An iconic suit.',
   },
   {
@@ -36,7 +36,7 @@ const products = [
     color: 'Royal Blue',
     fit: 'Slim',
     price: 650,
-    size: 40,
+    size: '40',
     description: 'A new fit on an iconic suit.',
   },
   {
@@ -47,7 +47,7 @@ const products = [
     color: 'Black',
     fit: 'Slim',
     price: 650,
-    size: 42,
+    size: '42',
     description: 'The ultimate party suit.',
   },
   {
@@ -58,7 +58,7 @@ const products = [
     color: 'Khaki',
     fit: 'Classic',
     price: 600,
-    size: 44,
+    size: '44',
     description: 'A suit for the summer.',
   },
   {
@@ -69,7 +69,7 @@ const products = [
     color: 'Charcoal',
     fit: 'Classic',
     price: 600,
-    size: 45,
+    size: '45',
     description: 'Go for smokey and smoldering.',
   },
   {
@@ -80,7 +80,7 @@ const products = [
     color: 'Olive',
     fit: 'Classic',
     price: 600,
-    size: 40,
+    size: '40',
     description: 'Money on your mind? Dress like it.',
   },
 ];
@@ -88,21 +88,25 @@ const products = [
 const orderDetails = [
   {
     quantity: 1,
+    price: 700,
     orderId: 1,
     productId: 1,
   },
   {
     quantity: 1,
+    price: 650,
     orderId: 1,
     productId: 4,
   },
   {
     quantity: 3,
+    price: 1800,
     orderId: 2,
     productId: 5,
   },
   {
     quantity: 1,
+    price: 700,
     orderId: 1,
     productId: 2,
   },
@@ -111,10 +115,12 @@ const orderDetails = [
 const orders = [
   {
     order_status: 'pending',
+    total_price: 2050,
     userId: 1,
   },
   {
     order_status: 'pending',
+    total_price: 1800,
     userId: 2,
   },
 ];
@@ -133,6 +139,7 @@ async function seed() {
       username: 'cody',
       password: '123',
       email: 'codytheyak@aol.com',
+      admin: true,
     }),
     User.create({
       username: 'murphy',
