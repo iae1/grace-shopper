@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const {requireToken, isAdmin} = require('./gatekeeping');
 const {
   models: { Product },
 } = require('../db');
@@ -15,7 +16,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // POST products
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     res.status(201).send(await Product.create(req.body));
   } catch (err) {
@@ -24,7 +25,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // EDIT products
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.update(req.body);
@@ -35,7 +36,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // DELETE products
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.destroy();
