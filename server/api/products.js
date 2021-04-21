@@ -1,9 +1,13 @@
+const router = require('express').Router()
+const { models: { Product }} = require('../db')
+
+
+// GET /api/products
 const router = require('express').Router();
 const {requireToken, isAdmin} = require('./gatekeeping');
 const {
   models: { Product },
 } = require('../db');
-module.exports = router;
 
 // GET products
 router.get('/', async (req, res, next) => {
@@ -13,6 +17,25 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+})
+
+// GET /api/products/suits
+router.get('/suits', async (req, res, next) => {
+  try {
+  
+    const suits = await Product.findAll({
+      where: {
+        category: "Suit"
+      }
+    })
+    
+    
+    res.json(suits)
+  } catch (err) {
+    next(err)
+  }
+})
+
 });
 
 // POST products
@@ -45,3 +68,5 @@ router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;
