@@ -21,9 +21,54 @@ router.get('/suits', async (req, res, next) => {
       where: {
         category: 'Suit',
       },
-      attributes: ['id', 'name', 'imageUrl', 'price'],
+      attributes: ['id', 'name', 'imageUrl', 'color', 'price'],
     });
     res.json(suits);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/products/sportcoats
+router.get('/sportcoats', async (req, res, next) => {
+  try {
+    const sportcoats = await Product.findAll({
+      where: {
+        category: 'Sportcoats',
+      },
+      attributes: ['id', 'name', 'imageUrl', 'color', 'price'],
+    });
+    res.json(sportcoats);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/products/shirts
+router.get('/shirts', async (req, res, next) => {
+  try {
+    const shirts = await Product.findAll({
+      where: {
+        category: 'Shirts',
+      },
+      attributes: ['id', 'name', 'imageUrl', 'color', 'price'],
+    });
+    res.json(shirts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/products/trousers
+router.get('/trousers', async (req, res, next) => {
+  try {
+    const trousers = await Product.findAll({
+      where: {
+        category: 'Trousers',
+      },
+      attributes: ['id', 'name', 'imageUrl', 'color', 'price'],
+    });
+    res.json(trousers);
   } catch (err) {
     next(err);
   }
@@ -34,6 +79,36 @@ router.get('/suits/:id', async (req, res, next) => {
   try {
     const suit = await Product.findByPk(req.params.id);
     res.json(suit);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET single sportcoat
+router.get('/sportcoats/:id', async (req, res, next) => {
+  try {
+    const sportcoat = await Product.findByPk(req.params.id);
+    res.json(sportcoat);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET single shirt
+router.get('/shirts/:id', async (req, res, next) => {
+  try {
+    const shirt = await Product.findByPk(req.params.id);
+    res.json(shirt);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET single trouser
+router.get('/trousers/:id', async (req, res, next) => {
+  try {
+    const trouser = await Product.findByPk(req.params.id);
+    res.json(trouser);
   } catch (err) {
     next(err);
   }
