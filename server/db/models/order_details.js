@@ -16,6 +16,16 @@ const OrderDetails = db.define('order_details', {
       min: 1,
     },
   },
+  fit: {
+    type: Sequelize.STRING,
+  },
+  size: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  length: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = OrderDetails;

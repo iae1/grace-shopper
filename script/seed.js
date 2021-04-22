@@ -12,9 +12,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Grey',
-    fit: 'Classic',
     price: 700,
-    size: '43',
     description: 'An iconic suit.',
   },
   {
@@ -23,9 +21,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Navy Blue',
-    fit: 'Classic',
     price: 700,
-    size: '41',
     description: 'An iconic suit.',
   },
   {
@@ -34,9 +30,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Royal Blue',
-    fit: 'Slim',
     price: 650,
-    size: '40',
     description: 'A new fit on an iconic suit.',
   },
   {
@@ -45,9 +39,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Black',
-    fit: 'Slim',
     price: 650,
-    size: '42',
     description: 'The ultimate party suit.',
   },
   {
@@ -56,9 +48,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Khaki',
-    fit: 'Classic',
     price: 600,
-    size: '44',
     description: 'A suit for the summer.',
   },
   {
@@ -67,9 +57,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Charcoal',
-    fit: 'Classic',
     price: 600,
-    size: '45',
     description: 'Go for smokey and smoldering.',
   },
   {
@@ -78,9 +66,7 @@ const products = [
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Olive',
-    fit: 'Classic',
     price: 600,
-    size: '40',
     description: 'Money on your mind? Dress like it.',
   },
 ];
@@ -91,24 +77,32 @@ const orderDetails = [
     price: 700,
     orderId: 1,
     productId: 1,
+    fit: 'classic',
+    size: '42',
   },
   {
     quantity: 1,
     price: 650,
     orderId: 1,
     productId: 4,
+    fit: 'slim',
+    size: '40',
   },
   {
     quantity: 3,
     price: 1800,
     orderId: 2,
     productId: 5,
+    fit: 'classic',
+    size: '43',
   },
   {
     quantity: 1,
     price: 700,
     orderId: 1,
     productId: 2,
+    fit: 'slim',
+    size: '38',
   },
 ];
 

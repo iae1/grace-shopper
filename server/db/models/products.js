@@ -19,22 +19,13 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  fit: {
-    type: Sequelize.STRING,
-  },
+
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 1,
     },
-  },
-  size: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  length: {
-    type: Sequelize.STRING,
   },
   description: {
     type: Sequelize.TEXT,
