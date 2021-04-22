@@ -1,6 +1,8 @@
-const router = require('express').Router()
-const { models: { Product }} = require('../db')
-const {requireToken, isAdmin} = require('./gatekeeping');
+const router = require('express').Router();
+const { requireToken, isAdmin } = require('./gatekeeping');
+const {
+  models: { Product },
+} = require('../db');
 
 // GET products
 router.get('/', async (req, res, next) => {
@@ -10,34 +12,32 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
+});
 
 // GET /api/products/suits
 router.get('/suits', async (req, res, next) => {
   try {
-
     const suits = await Product.findAll({
       where: {
-        category: "Suit"
-      }
-    })
-
-    res.json(suits)
+        category: 'Suit',
+      },
+      attributes: ['id', 'name', 'imageUrl', 'price'],
+    });
+    res.json(suits);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-// GET /api/products/suits/:id
+// GET single suit
 router.get('/suits/:id', async (req, res, next) => {
   try {
-    const singleSuit = await Product.findByPk(req.params.id)
-
-    res.json(singleSuit)
+    const suit = await Product.findByPk(req.params.id);
+    res.json(suit);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // POST products
 router.post('/', requireToken, isAdmin, async (req, res, next) => {
