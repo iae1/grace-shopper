@@ -69,6 +69,105 @@ const products = [
     price: 600,
     description: 'Money on your mind? Dress like it.',
   },
+  {
+    name: 'John',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Tan',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Judas',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Ink Black',
+    price: 700,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Paul',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Brown',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Juan',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Grey',
+    price: 700,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Morgan',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Emerald',
+    price: 700,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Isaac',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Blue',
+    price: 700,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Nick',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Black',
+    price: 700,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'Winston',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Tan',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'The Gentleman',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Tobacco',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'The Lounger',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Charcoal',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
+  {
+    name: 'The Loiterer',
+    category: 'Suit',
+    imageUrl:
+      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    color: 'Light Gray',
+    price: 600,
+    description: 'Money on your mind? Dress like it.',
+  },
 ];
 
 const orderDetails = [
