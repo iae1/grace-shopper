@@ -21,17 +21,17 @@ class Routes extends Component {
     return (
       <div>
 
-        <Switch>
+        {/* <Switch>
           <Route path='/home' component={Home} />
           <Route path='/suits/:id' component={SingleSuit} />
           <Route exact path='/suits' component={AllSuits} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-        </Switch>
+        </Switch> */}
 
 
 
-        {/* {isLoggedIn ? (
+        {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
@@ -42,7 +42,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
-        )} */}
+        )}
       </div>
     )
   }
