@@ -19,3 +19,31 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+form button {
+  background-color: white;
+  margin: 0.25rem;
+  cursor: pointer;
+}
+
+.clicked {
+  background-color: navy;
+  color: white;
+}
+
+.single-item {
+  display: flex;
+}
+
+.single-item div {
+  margin: 1rem;
+}
+
+.single-item form {
+  margin: 1rem;
+  padding-top: 12rem;
+}
+
+.add-to-cart {
+  padding: 0.5rem 2rem;
+}
