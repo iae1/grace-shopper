@@ -8,12 +8,17 @@ const Order = db.define('order', {
     defaultValue: 'pending',
   },
   total_price: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 1,
-    },
+    type: Sequelize.INTEGER
   },
+  address: {
+    type: Sequelize.TEXT
+  },
+  email: {
+    type: Sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  }
 });
 
 module.exports = Order;
