@@ -10,14 +10,11 @@ const OrderDetails = db.define('order_details', {
     },
   },
   price: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 1,
-    },
+    type: Sequelize.INTEGER
   },
   fit: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
   size: {
     type: Sequelize.STRING,
