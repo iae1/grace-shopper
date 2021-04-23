@@ -21,13 +21,13 @@ class Routes extends Component {
     return (
       <div>
 
-        <Switch>
+        {/* <Switch>
           <Route path='/home' component={Home} />
           <Route path='/suits/:id' component={SingleSuit} />
           <Route exact path='/suits' component={AllSuits} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-        </Switch>
+        </Switch> */}
 
 
 

@@ -7,9 +7,10 @@ import {authenticate} from '../store/auth'
  */
 const AuthForm = props => {
   const {email, displayName, handleSubmit, error, name } = props
+  console.log('displayName--->', displayName)
   return (
     <div>
-      <form onSubmit={() => handleSubmit} email={email} name={name}>
+      <form onSubmit={(evt) => handleSubmit(evt)} email={email} name={name}>
         <div>
           <label htmlFor="username">
             <small>Username</small>
