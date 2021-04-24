@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { requireToken, isAdmin, checkUserMatch, userCart, orderDetail } = require('./gatekeeping');
+const { requireToken, isAdmin, userCart, orderDetail } = require('./gatekeeping');
 const {
   models: { User, Product, Order, OrderDetails },
 } = require('../db');
@@ -8,32 +8,19 @@ module.exports = router;
 //GET route for all users
 router.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const users = await User.findAll({});
+    const users = await User.findAll({
+      include: {model: Order,
+        include: {model: Product}
+      }
+    });
     res.json(users);
   } catch (err) {
     next(err);
   }
 });
 
-//GET route for a user by id including all of its information
-router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      include: {model: Order,
-        include: {model: Product}
-      },
-      where: {
-        id: req.params.id
-      }
-    });
-    res.json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
 //GET pending order (i.e., cart) route for logged in user
-router.get('/:id/cart', requireToken, checkUserMatch, userCart, async (req,res,next) => {
+router.get('/cart', requireToken, userCart, async (req,res,next) => {
   try {
     if (req.userCart) return res.status(200).send(req.userCart)
     return res.status(200).send("This user doesn't have a cart")
@@ -43,7 +30,7 @@ router.get('/:id/cart', requireToken, checkUserMatch, userCart, async (req,res,n
 })
 
 //PUT pending order (i.e., cart) route to checkout for logged in user
-router.put('/:id/cart', requireToken, checkUserMatch, userCart, async (req,res,next) => {
+router.put('/cart', requireToken, userCart, async (req,res,next) => {
   try {
     // checking out
     const { address } = req.body;
@@ -87,8 +74,25 @@ router.put('/:id/cart', requireToken, checkUserMatch, userCart, async (req,res,n
   }
 })
 
+//GET route for a user by id including all of its information (This is just for admin in the backend, so it's fine that it needs user's id)
+router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      include: {model: Order,
+        include: {model: Product}
+      },
+      where: {
+        id: req.params.id
+      }
+    });
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //DELETE route to delete a product from a user's cart
-router.delete('/:id/cart/:productId', requireToken, checkUserMatch, userCart, orderDetail, async (req,res,next) => {
+router.delete('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
       await req.orderDetail.destroy();
@@ -108,7 +112,7 @@ router.delete('/:id/cart/:productId', requireToken, checkUserMatch, userCart, or
 })
 
 //PUT route to update a product's quantity, size, fit or length in a user's cart
-router.put('/:id/cart/:productId', requireToken, checkUserMatch, userCart, orderDetail, async (req,res,next) => {
+router.put('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
       await req.orderDetail.update({
@@ -133,7 +137,7 @@ router.put('/:id/cart/:productId', requireToken, checkUserMatch, userCart, order
 })
 
 //POST route to add a product to a user's cart
-router.post('/:id/cart/:productId', requireToken, checkUserMatch, userCart, orderDetail, async (req,res,next) => {
+router.post('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     const { fit, size, length} = req.body;
     if (!req.orderDetail) {

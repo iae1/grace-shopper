@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchSuits } from "../store/suits"
+import { Link } from 'react-router-dom'
 
 class AllSuits extends Component {
   componentDidMount() {
@@ -17,7 +18,9 @@ class AllSuits extends Component {
         ) : (
           suits.map((s) => (
             <div key={s.id}>
-              {s.name}
+              <h4>
+                <Link to={`/suits/${s.id}`}>{s.name}</Link>
+              </h4>
             </div>
           ))
         )}

@@ -8,31 +8,29 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <h1>Philip's Suits: Fit for a Consort</h1>
     <nav>
 
-      <h3>Suits</h3>
-
-      <h3>Sportcoats</h3>
-
-      <h3>Trousers</h3>
-
-      <h3>Shirts</h3>
-
       {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
+            <Link to="/">Home</Link>
+            <Link to="#" onClick={handleClick}>
               Logout
-            </a>
+            </Link>
           </div>
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
+            <Link to="/">Home</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
       )}
 
       <img src="https://www.spierandmackay.com//files/shopping-bag.png" />
+
+      <br />
+      <br />
+
+      <Link to="/suits">Suits</Link><Link to="/sportcoats">Sportcoats</Link><Link to="/sportcoats">Trousers</Link><Link to="/sportcoats">Shirts</Link>
 
     </nav>
   </div>

@@ -3,6 +3,7 @@ import axios from "axios";
 //ACTION CONSTANTS
 const SET_SUITS = "SET_SUITS"
 const SET_SINGLE_SUIT = "SET_SINGLE_SUIT"
+const ADD_TO_CART = "ADD_TO_CART"
 
 //ACTION CREATOR
 export const setSuits = (suits) => {
@@ -16,6 +17,13 @@ export const setSingleSuit = (suit) => {
   return {
     type: SET_SINGLE_SUIT,
     suit
+  }
+}
+
+export const addToCart = (orderItem) => {
+  return {
+    type: ADD_TO_CART,
+    orderItem
   }
 }
 
@@ -42,6 +50,17 @@ export const fetchSingleSuit = (suitId) => {
   }
 }
 
+export const addToCartThunk = (id, productId, orderItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: createdOrderItem } = await axios.post(`/api/${id}/cart/${productId}`, { fit, size, length })
+      dispatch(addToCart(createdOrderItem))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   allSuits: [],
@@ -53,6 +72,8 @@ export default function suitsReducer (state = initState, action) {
     case SET_SUITS:
       return { ...state, allSuits: [...action.suits]}
     case SET_SINGLE_SUIT:
+      return { ...state, singleSuit: action.suit }
+    case ADD_TO_CART:
       return { ...state, singleSuit: action.suit }
     default:
       return state;
