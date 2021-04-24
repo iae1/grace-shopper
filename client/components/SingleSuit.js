@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleSuit } from "../store/suits";
+import { addToCart, fetchSingleSuit } from "../store/suits";
+import { addToCartThunk } from "../store/suits";
 
 class SingleSuit extends Component {
   constructor() {
@@ -45,20 +46,13 @@ class SingleSuit extends Component {
       return;
     };
 
-    const order = {
-      price: this.props.singleSuit.price,
+    const orderItem = {
       fit: this.state.fit,
       size: this.state.size,
       length: this.state.length,
-      // orderId: '',
-      productId: this.props.singleSuit.id,
     };
 
-    console.log(order);
-
-    // when order is submitted, it should dispatch a thunk, which will be a post request to Order Details
-    // example: addOrderToCart(order)
-
+    this.props.invokeAddToCart(orderItem);
   }
 
   render() {
@@ -126,6 +120,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   loadSingleSuit: (suitId) => dispatch(fetchSingleSuit(suitId)),
+  invokeAddToCart: (orderItem) => dispatch(addToCartThunk(orderItem)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleSuit);
