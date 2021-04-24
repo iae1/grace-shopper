@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addToCart, fetchSingleSuit } from "../store/suits";
 import { addToCartThunk } from "../store/suits";
+import { addProductToCart, updateProductInCart } from "../store/cart"
 
 class SingleSuit extends Component {
   constructor() {
@@ -36,6 +37,7 @@ class SingleSuit extends Component {
         [e.target.name]: e.target.value
       });
     };
+    console.log('state--->', this.state)
   }
 
   handleSubmit(e) {
@@ -45,14 +47,28 @@ class SingleSuit extends Component {
       alert('please select an option for each sizing field!');
       return;
     };
-
+    const token = window.localStorage.getItem('token')
     const orderItem = {
+      id: this.props.singleSuit.id,
       fit: this.state.fit,
       size: this.state.size,
       length: this.state.length,
+      token
     };
+    
+    for (let i = 0; i < this.props.cart.length; i++){
+      if (
+        this.props.singleSuit.id === this.props.cart[i].id &&
+        orderItem.fit === this.props.cart[i].fit &&
+        orderItem.size === this.props.cart[i].size &&
+        orderItem.length === this.props.cart[i].length
+        ) {
+        //dispatch update cart thunk
+        return this.props.updateSuitInCart(orderItem)
+      }
+    }
 
-    this.props.invokeAddToCart(orderItem);
+    this.props.addSuitToCart(orderItem);
   }
 
   render() {
@@ -115,12 +131,14 @@ class SingleSuit extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  singleSuit: state.suits.singleSuit
+  singleSuit: state.suits.singleSuit,
+  cart: state.cart
 });
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   loadSingleSuit: (suitId) => dispatch(fetchSingleSuit(suitId)),
-  invokeAddToCart: (orderItem) => dispatch(addToCartThunk(orderItem)),
+  addSuitToCart: (orderItem) => dispatch(addProductToCart(orderItem)),
+  updateSuitInCart: (orderItem) => dispatch(updateProductInCart(orderItem))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleSuit);

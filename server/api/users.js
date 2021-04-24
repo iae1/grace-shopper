@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { requireToken, isAdmin, userCart, orderDetail } = require('./gatekeeping');
+const { requireToken, isAdmin, userCart, orderDetail, cartRequireToken, productPrice } = require('./gatekeeping');
 const {
   models: { User, Product, Order, OrderDetails },
 } = require('../db');
@@ -112,6 +112,7 @@ router.delete('/cart/:productId', requireToken, userCart, orderDetail, async (re
 })
 
 //PUT route to update a product's quantity, size, fit or length in a user's cart
+//this route as of 5:48pm 4/24 has not bee updated to reflect changes made to POST
 router.put('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
@@ -137,18 +138,23 @@ router.put('/cart/:productId', requireToken, userCart, orderDetail, async (req,r
 })
 
 //POST route to add a product to a user's cart
-router.post('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
+router.post('/cart/:productId', cartRequireToken, userCart, /*orderDetail,*/ productPrice, async (req,res,next) => {
   try {
-    const { fit, size, length} = req.body;
+    const { fit, size, length } = req.body;
+    console.log('req.productPrice--->', req.productPrice)
+    console.log('req.orderDetail--->', req.orderDetail)
     if (!req.orderDetail) {
+
       await OrderDetails.create({
         fit,
         size,
         length,
         quantity: 1,
+        price: req.productPrice,
         orderId: req.userCart.id,
         productId: req.params.productId
       });
+      
       const updatedCart = await Order.findOne({
         include: Product,
         where: {

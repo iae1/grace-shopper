@@ -1,41 +1,42 @@
 import axios from "axios";
 
+
+const TOKEN = 'token'
+
 //ACTION CONSTANTS
-const ADD_TO_CART = "ADD_TO_CART"
-const UPDATED_IN_CART = "UPDATED_IN_CART"
+const UPDATE_CART = "UPDATE_CART"
 
 //ACTION CREATORS
-export const addedProductToCart = (product) => {
+export const updateCart = (cart) => {
   return {
-    type: ADD_TO_CART,
-    product
-  }
-}
-
-export const updatedProductInCart = (product) => {
-  return {
-    type: UPDATED_IN_CART,
-    product
+    type: UPDATE_CART,
+    cart
   }
 }
 
 //THUNK CREATORS
-export const addProductToCart = (productId) => {
+export const addProductToCart = (orderItem) => {
   return async (dispatch) => {
     try {
-      const { data: product } = await axios.post(`/api/users/cart/${productId}`)
-      dispatch(addedProductToCart(product))
+      const { data: cart } = await axios.post(`/api/users/cart/${orderItem.id}`,
+      orderItem
+      )
+      dispatch(updateCart(cart))
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-export const updateProductInCart = (productId) => {
+export const updateProductInCart = (orderItem) => {
   return async (dispatch) => {
     try {
-      const { data: product } = await axios.put(`/api/users/cart/${productId}`)
-      dispatch(updatedProductInCart(product))
+      const token = window.localStorage.getItem(TOKEN)
+      const { data: cart } = await axios.put(`/api/users/cart/${orderItem.id}`,{
+      orderItem
+      }
+      )
+      dispatch(updateCart(cart))
     } catch (error) {
       
     }
@@ -50,9 +51,9 @@ const initState = {
 //REDUCER
 export default function cartReducer (state = initState, action) {
   switch (action.type) {
-    case ADD_TO_CART:
-      return { ...state, cart: [...state.cart, action.product] }
-    case UPDATED_IN_CART:
-      const updatedCart = state.cart()
+    case UPDATE_CART:
+      return { ...state, cart: action.cart}
+    default:
+      return state;
   }
 }
