@@ -13,18 +13,6 @@ const requireToken = async (req, res, next) => {
   }
 }
 
-const checkUserMatch = async (req, res, next) => {
-  try {
-    if (req.user.id.toString() === req.params.id) {
-      next();
-    } else {
-      return res.status(403).send("You don't have permission to see this user's information")
-    }
-  } catch (err) {
-    next(err)
-  }
-}
-
 const userCart = async (req, res, next) => {
   try {
     req.userCart = await Order.findOne({
@@ -69,7 +57,6 @@ const isAdmin = async (req, res, next) => {
 module.exports = {
   requireToken,
   isAdmin,
-  checkUserMatch,
   userCart,
   orderDetail
 }
