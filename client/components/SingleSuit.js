@@ -25,11 +25,10 @@ class SingleSuit extends Component {
     // grab a shallow copy of state
     // set quantity to the current state
     const itemDetails = {
-      ...this.props.product,
-      product: this.props.singleSuit.id,
-      fit: this.state.fit,
-      size: this.state.size,
-      length: this.state.length,
+      ...this.props.singleSuit,
+      // fit: this.state.fit,
+      // size: this.state.size,
+      // length: this.state.length,
       quantity: this.state.quantity,
     };
     // if there is no user and no cart in local storage
@@ -64,6 +63,7 @@ class SingleSuit extends Component {
               // coerce to number and add additional quantity
               Number(item.quantity) + Number(itemDetails.quantity);
           }
+          // if false add the item to the array
           return item;
         });
       } else {
@@ -118,6 +118,7 @@ class SingleSuit extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { singleSuit } = this.props;
 
     return (
