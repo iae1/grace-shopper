@@ -48,8 +48,6 @@ router.post('/', async (req, res, next) => {
       }
     })
 
-    console.log("cart.products ---->", cart.products)
-
     //set the new total price
     const total_price = allOrderDetails.reduce((accumulator, current) => accumulator + (current.price * current.quantity), 0);
 
