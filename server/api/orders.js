@@ -4,7 +4,6 @@ const {
 } = require('../db');
 module.exports = router;
 
-// >>>>>>> NEEDS FIXING <<<<<<<<<<
 // POST route to create an order for guest checkout
 router.post('/', async (req, res, next) => {
   try {

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { requireToken, isAdmin, userCart, orderDetail } = require('./gatekeeping');
+const { requireToken, isAdmin, userCart, orderDetail } = require('./gateKeeping');
 const {
   models: { User, Product, Order, OrderDetails },
 } = require('../db');
