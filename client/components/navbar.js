@@ -25,12 +25,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </div>
       )}
 
-      <img src="https://www.spierandmackay.com//files/shopping-bag.png" />
+      <hr />
 
-      <br />
-      <br />
+      <Link to="/suits">Suits</Link>
+      <Link to="/sportcoats">Sportcoats</Link>
+      <Link to="/sportcoats">Trousers</Link>
+      <Link to="/sportcoats">Shirts</Link>
+      <Link to="/cart"><img src="https://www.spierandmackay.com//files/shopping-bag.png" /></Link>
 
-      <Link to="/suits">Suits</Link><Link to="/sportcoats">Sportcoats</Link><Link to="/sportcoats">Trousers</Link><Link to="/sportcoats">Shirts</Link>
+      <hr />
 
     </nav>
   </div>
