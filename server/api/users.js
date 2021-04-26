@@ -93,7 +93,7 @@ router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
 });
 
 //DELETE route to delete a product from a user's cart
-router.delete('/cart/:productId', requireToken, userCart, orderDetail, async (req,res,next) => {
+router.delete('/cart/:productId', cartRequireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
       await req.orderDetail.destroy();

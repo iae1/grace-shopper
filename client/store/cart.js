@@ -54,6 +54,19 @@ export const updateProductInCart = (orderItem) => {
   }
 }
 
+export const deleteItemInCart = (orderItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.delete(`/api/users/cart/${orderItem.id}`,
+      orderItem
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   cart: {}
