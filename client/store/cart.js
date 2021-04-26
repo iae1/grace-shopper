@@ -1,19 +1,9 @@
 import axios from "axios";
 
-const TOKEN = 'token'
-
 //ACTION CONSTANTS
-const UPDATE_CART = "UPDATE_CART"
 const SET_CART = "SET_CART"
 
 //ACTION CREATORS
-export const updateCart = (cart) => {
-  return {
-    type: UPDATE_CART,
-    cart
-  }
-}
-
 export const setCart = (cart) => {
   return {
     type: SET_CART,
@@ -28,17 +18,22 @@ export const addProductToCart = (orderItem) => {
       const { data: cart } = await axios.post(`/api/users/cart/${orderItem.id}`,
       orderItem
       )
-      dispatch(updateCart(cart))
+      dispatch(setCart(cart))
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-export const fetchCart = () => {
+export const fetchCart = (token) => {
   return async (dispatch) => {
     try {
-      const { data: cart } = await axios.get('/api/users/cart')
+      const { data: cart } = await axios.get('/api/users/cart', {
+        headers: {
+          authorization: token
+        }
+      })
+      console.log("cart", cart)
       dispatch(setCart(cart))
     } catch (error) {
       console.log(error)
@@ -49,28 +44,25 @@ export const fetchCart = () => {
 export const updateProductInCart = (orderItem) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem(TOKEN)
       const { data: cart } = await axios.put(`/api/users/cart/${orderItem.id}`,
       orderItem
       )
-      dispatch(updateCart(cart))
+      dispatch(setCart(cart))
     } catch (error) {
-      
+
     }
   }
 }
 
 //INITIAL STATE
 const initState = {
-  cart: []
+  cart: {}
 }
 
 //REDUCER
 export default function cartReducer (state = initState, action) {
   switch (action.type) {
     case SET_CART:
-      return { ...state, cart: action.cart}
-     case UPDATE_CART:
       return { ...state, cart: action.cart}
     default:
       return state;
