@@ -5,6 +5,7 @@ const {
   models: { User, Product, Order, OrderDetails },
 } = require('../server/db');
 
+//Products array to seed
 const products = [
   {
     name: 'Phillip',
@@ -170,6 +171,7 @@ const products = [
   },
 ];
 
+//Order details to seed
 const orderDetails = [
   {
     quantity: 1,
@@ -178,6 +180,7 @@ const orderDetails = [
     productId: 1,
     fit: 'classic',
     size: '42',
+    length: 'short'
   },
   {
     quantity: 1,
@@ -186,14 +189,7 @@ const orderDetails = [
     productId: 4,
     fit: 'slim',
     size: '40',
-  },
-  {
-    quantity: 3,
-    price: 1800,
-    orderId: 2,
-    productId: 5,
-    fit: 'classic',
-    size: '43',
+    length: 'short'
   },
   {
     quantity: 1,
@@ -202,20 +198,166 @@ const orderDetails = [
     productId: 2,
     fit: 'slim',
     size: '38',
+    length: 'regular'
+  },
+  {
+    quantity: 3,
+    price: 600,
+    orderId: 2,
+    productId: 5,
+    fit: 'classic',
+    size: '43',
+    length: 'long'
+  },
+  {
+    quantity: 2,
+    price: 700,
+    orderId: 3,
+    productId: 11,
+    fit: 'classic',
+    size: '38',
+    length: 'short'
+  },
+  {
+    quantity: 1,
+    price: 700,
+    orderId: 3,
+    productId: 12,
+    fit: 'slim',
+    size: '37',
+    length: 'short'
+  },
+  {
+    quantity: 1,
+    price: 700,
+    orderId: 3,
+    productId: 13,
+    fit: 'slim',
+    size: '37',
+    length: 'long'
+  },
+  {
+    quantity: 2,
+    price: 700,
+    orderId: 4,
+    productId: 12,
+    fit: 'classic',
+    size: '38',
+    length: 'short'
+  },
+  {
+    quantity: 2,
+    price: 700,
+    orderId: 5,
+    productId: 13,
+    fit: 'classic',
+    size: '38',
+    length: 'short'
+  },
+  {
+    quantity: 2,
+    price: 700,
+    orderId: 6,
+    productId: 14,
+    fit: 'classic',
+    size: '38',
+    length: 'short'
+  },
+  {
+    quantity: 2,
+    price: 700,
+    orderId: 7,
+    productId: 11,
+    fit: 'classic',
+    size: '38',
+    length: 'short'
   },
 ];
 
+//Orders to seed
 const orders = [
   {
     order_status: 'pending',
     total_price: 2050,
     userId: 1,
+    email: 'codytheyak@aol.com'
   },
   {
     order_status: 'pending',
     total_price: 1800,
     userId: 2,
+    email: 'murphyslaw@aol.com',
   },
+  {
+    order_status: 'pending',
+    total_price: 2800,
+    userId: 3,
+    email: 'juan@gmail.com',
+  },
+  {
+    order_status: 'pending',
+    total_price: 1400,
+    userId: 4,
+    email: 'morgan@gmail.com',
+  },
+  {
+    order_status: 'pending',
+    total_price: 1400,
+    userId: 5,
+    email: 'isaac@gmail.com',
+  },
+  {
+    order_status: 'pending',
+    total_price: 1400,
+    userId: 6,
+    email: 'nick@gmail.com',
+  },
+  {
+    order_status: 'completed',
+    total_price: 1400,
+    userId: 3,
+    address: "juan's address",
+    email: 'juan@gmail.com',
+  },
+];
+
+//Users to seed
+const users = [
+  {
+    username: 'cody',
+    password: '123',
+    email: 'codytheyak@aol.com',
+    admin: true,
+  },
+  {
+    username: 'murphy',
+    password: '123',
+    email: 'murphyslaw@aol.com',
+  },
+  {
+    username: 'juan',
+    password: '123',
+    email: 'juan@gmail.com',
+    admin: true,
+  },
+  {
+    username: 'morgan',
+    password: '123',
+    email: 'morgan@gmail.com',
+    admin: true,
+  },
+  {
+    username: 'isaac',
+    password: '123',
+    email: 'isaac@gmail.com',
+    admin: true,
+  },
+  {
+    username: 'nick',
+    password: '123',
+    email: 'nick@gmail.com',
+    admin: true,
+  }
 ];
 
 /**
@@ -226,36 +368,22 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
 
-  // Creating Users
-  const users = await Promise.all([
-    User.create({
-      username: 'cody',
-      password: '123',
-      email: 'codytheyak@aol.com',
-      admin: true,
-    }),
-    User.create({
-      username: 'murphy',
-      password: '123',
-      email: 'murphyslaw@aol.com',
-    }),
-  ]);
+  // Creating users in order (not very efficient, but this guarantees that they have expected ids)
+  for (let user of users) {
+    await User.create(user)
+  };
 
-  // Creating Products
-  await Promise.all(
-    products.map((product) => {
-      return Product.create(product);
-    })
-  );
+  // Creating Products in order (not very efficient, but this guarantees that they have expected ids)
+  for (let product of products) {
+    await Product.create(product)
+  };
 
-  // Creating Orders
-  await Promise.all(
-    orders.map((order) => {
-      return Order.create(order);
-    })
-  );
+  // Creating Orders in order (not very efficient, but this guarantees that they have expected ids)
+  for (let order of orders) {
+    await Order.create(order)
+  };
 
-  // Creating OrdersDetails
+  // Creating OrdersDetails in order (not very efficient, but this guarantees that they have expected ids)
   await Promise.all(
     orderDetails.map((orderDetail) => {
       return OrderDetails.create(orderDetail);
@@ -263,7 +391,7 @@ async function seed() {
   );
 
   console.log(`seeded ${users.length} users`);
-  console.log(`seeded ${products.length} users`);
+  console.log(`seeded ${products.length} products`);
   console.log(`seeded successfully`);
   return {
     users: {
