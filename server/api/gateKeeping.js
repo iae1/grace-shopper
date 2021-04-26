@@ -13,6 +13,17 @@ const requireToken = async (req, res, next) => {
   }
 }
 
+const cartRequireToken = async (req, res, next) => {
+  try {
+    const token = req.body.token
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err)
+  }
+}
+
 const userCart = async (req, res, next) => {
   try {
     req.userCart = await Order.findOne({
@@ -33,12 +44,24 @@ const orderDetail = async (req, res, next) => {
     req.orderDetail = await OrderDetails.findOne({
       where: {
         orderId: req.userCart.id,
-        productId: req.params.productId
+        productId: req.params.productId,
       }
     })
     next();
   } catch (err) {
     next(err)
+  }
+}
+
+const productPrice = async (req, res, next) => {
+  try {
+    const response = await Product.findByPk(req.body.id, {
+      attributes: ['price']
+    })
+    req.productPrice = response.dataValues.price
+    next()
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -58,5 +81,7 @@ module.exports = {
   requireToken,
   isAdmin,
   userCart,
-  orderDetail
+  orderDetail,
+  cartRequireToken,
+  productPrice
 }

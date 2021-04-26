@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addToCart, fetchSingleSuit } from "../store/suits";
 import { addToCartThunk } from "../store/suits";
+import { addProductToCart, updateProductInCart } from "../store/cart"
 
 class SingleSuit extends Component {
   constructor() {
@@ -92,7 +93,7 @@ class SingleSuit extends Component {
       this.setState({
         [e.target.name]: e.target.value,
       });
-    }
+    };
   }
 
   handleSubmit(e) {
@@ -101,22 +102,29 @@ class SingleSuit extends Component {
     if (!this.state.fit || !this.state.size || !this.state.length) {
       alert('please select an option for each sizing field!');
       return;
-    }
+    };
+    const token = window.localStorage.getItem('token')
 
     const orderItem = {
+      id: this.props.singleSuit.id,
       fit: this.state.fit,
       size: this.state.size,
       length: this.state.length,
+      token
     };
-
-
-    // console.log(order);
-
-    // when order is submitted, it should dispatch a thunk, which will be a post request to Order Details
-    // example: addOrderToCart(order)
     
-    // this.props.invokeAddToCart(orderItem);
-
+    for (let i = 0; i < this.props.cart.length; i++){
+      if (
+        this.props.singleSuit.id === this.props.cart[i].id &&
+        orderItem.fit === this.props.cart[i].fit &&
+        orderItem.size === this.props.cart[i].size &&
+        orderItem.length === this.props.cart[i].length
+        ) {
+        //dispatch update cart thunk
+        return this.props.updateSuitInCart(orderItem)
+      }
+    }
+    this.props.addSuitToCart(orderItem);
   }
 
   render() {
@@ -280,11 +288,13 @@ class SingleSuit extends Component {
 
 const mapStateToProps = (state) => ({
   singleSuit: state.suits.singleSuit,
+  cart: state.cart
 });
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   loadSingleSuit: (suitId) => dispatch(fetchSingleSuit(suitId)),
-  invokeAddToCart: (orderItem) => dispatch(addToCartThunk(orderItem)),
+  addSuitToCart: (orderItem) => dispatch(addProductToCart(orderItem)),
+  updateSuitInCart: (orderItem) => dispatch(updateProductInCart(orderItem))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleSuit);
