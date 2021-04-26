@@ -16,6 +16,7 @@ class SingleSuit extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -104,10 +105,11 @@ class SingleSuit extends Component {
       return;
     };
     const token = window.localStorage.getItem('token')
-
+    const numberedQuantity = parseInt(this.state.quantity, 10)
+    
     const orderItem = {
       id: this.props.singleSuit.id,
-      quantity: this.state.quantity,
+      quantity: numberedQuantity,
       token
     };
 
@@ -128,6 +130,12 @@ class SingleSuit extends Component {
     orderItem.size = this.state.size,
     orderItem.length = this.state.length,
     this.props.addSuitToCart(orderItem);
+  }
+  
+  handleChange (e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   }
 
   render() {
@@ -275,7 +283,14 @@ class SingleSuit extends Component {
 
           <br />
           <br />
-
+          <select name="quantity" onChange={this.handleChange}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
           <button
             type='submit'
             className='add-to-cart'
@@ -283,6 +298,7 @@ class SingleSuit extends Component {
           >
             Add to Cart
           </button>
+          
         </form>
       </div>
     );
