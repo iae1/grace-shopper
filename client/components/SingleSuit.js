@@ -106,7 +106,7 @@ class SingleSuit extends Component {
     };
     const token = window.localStorage.getItem('token')
     const numberedQuantity = parseInt(this.state.quantity, 10)
-    
+
     const orderItem = {
       id: this.props.singleSuit.id,
       quantity: numberedQuantity,
@@ -123,6 +123,7 @@ class SingleSuit extends Component {
         // orderItem.length === this.props.cart[i].length
         ) {
         //dispatch update cart thunk
+        orderItem.quantity = numberedQuantity + this.props.cart.cart.products[i].order_details.quantity
         return this.props.updateSuitInCart(orderItem)
       }
     }
@@ -131,7 +132,7 @@ class SingleSuit extends Component {
     orderItem.length = this.state.length,
     this.props.addSuitToCart(orderItem);
   }
-  
+
   handleChange (e) {
     this.setState({
       [e.target.name]: e.target.value,
@@ -298,7 +299,7 @@ class SingleSuit extends Component {
           >
             Add to Cart
           </button>
-          
+
         </form>
       </div>
     );

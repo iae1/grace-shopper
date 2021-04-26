@@ -117,9 +117,8 @@ router.delete('/cart/:productId', requireToken, userCart, orderDetail, async (re
 router.put('/cart/:productId', cartRequireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
-      const newQuantity = req.body.quantity +req.orderDetail.quantity;
       await req.orderDetail.update({
-        quantity: newQuantity,
+        quantity: req.body.quantity,
         fit: req.body.fit,
         size: req.body.size,
         length: req.body.length

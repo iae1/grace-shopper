@@ -56,19 +56,19 @@ import {connect} from 'react-redux'
 // }
 
 const OrderConfirmation = (props) => {
-  // const { cart } = props;
+  const { cart } = props;
   return (
     <div>
       <h1>
-        Order Confirmation #{cart.id}
+        Order Confirmation #{cart.cart.id}
       </h1>
       <h2>
         Thank you for shopping at Phillip's Suits!
       </h2>
       <p>An email confirmation has been sent to:</p>
-      <p>{cart.email}</p>
+      <p>{cart.cart.email}</p>
       <p>Your order will arrive shortly at:</p>
-      <p>{cart.address}</p>
+      <p>{cart.cart.address}</p>
       <h2>
         Order Details
       </h2>
@@ -82,7 +82,7 @@ const OrderConfirmation = (props) => {
           <th>Price</th>
           <th>Quantity</th>
         </tr>
-        {cart.products.map((product) => {
+        {cart.cart.products.map((product) => {
           return (
             <tr>
               <td>{product.name}</td>
@@ -96,7 +96,7 @@ const OrderConfirmation = (props) => {
           );
         })}
       </table>
-      <p><strong>Order Total: </strong>${cart.total_price}</p>
+      <p><strong>Order Total: </strong>${cart.cart.total_price}</p>
     </div>
   )
 }
