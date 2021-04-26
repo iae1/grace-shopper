@@ -8,8 +8,9 @@ import { fetchCart } from '../store/cart'
 export class Home extends Component {
   async componentDidMount() {
     const token = window.localStorage.getItem('token');
-    console.log("TOKEN--->", token)
-    await this.props.fetchCart(token);
+    if (token) {
+      await this.props.fetchCart(token);
+    }
   }
   render() {
     return (
