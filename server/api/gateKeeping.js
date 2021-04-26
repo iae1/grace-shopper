@@ -45,9 +45,6 @@ const orderDetail = async (req, res, next) => {
       where: {
         orderId: req.userCart.id,
         productId: req.params.productId,
-        fit: req.body.fit,
-        size: req.body.size,
-        length: req.body.length
       }
     })
     next();
