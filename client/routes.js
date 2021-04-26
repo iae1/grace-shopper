@@ -6,6 +6,7 @@ import Home from './components/home';
 import AllSuits from './components/AllSuits';
 import SingleSuit from './components/SingleSuit';
 import Cart from './components/Cart';
+import OrderConfirmation from './components/OrderConfirmation';
 import { me } from './store';
 
 /**
@@ -21,22 +22,23 @@ class Routes extends Component {
 
     return (
       <div>
-
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path='/' component={Home} />
             <Route path='/suits/:id' component={SingleSuit} />
             <Route exact path='/suits' component={AllSuits} />
             <Route exact path='/cart' component={Cart} />
+            <Route exact path='/checkout' component={OrderConfirmation} />
           </Switch>
         ) : (
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route exact path='/' component={Home} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
             <Route path='/suits/:id' component={SingleSuit} />
             <Route exact path='/suits' component={AllSuits} />
             <Route exact path='/cart' component={Cart} />
+            <Route exact path='/checkout' component={OrderConfirmation} />
           </Switch>
         )}
       </div>
