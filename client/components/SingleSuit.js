@@ -107,23 +107,26 @@ class SingleSuit extends Component {
 
     const orderItem = {
       id: this.props.singleSuit.id,
-      fit: this.state.fit,
-      size: this.state.size,
-      length: this.state.length,
+      quantity: this.state.quantity,
       token
     };
-    
-    for (let i = 0; i < this.props.cart.length; i++){
+
+    for (let i = 0; i < this.props.cart.cart.products.length; i++){
       if (
-        this.props.singleSuit.id === this.props.cart[i].id &&
-        orderItem.fit === this.props.cart[i].fit &&
-        orderItem.size === this.props.cart[i].size &&
-        orderItem.length === this.props.cart[i].length
+        this.props.singleSuit.id === this.props.cart.cart.products[i].id
+        //the following lineas are only necessary if size, fit and length are allowed to be variable for same product in an order
+        // &&
+        // orderItem.fit === this.props.cart[i].fit &&
+        // orderItem.size === this.props.cart[i].size &&
+        // orderItem.length === this.props.cart[i].length
         ) {
         //dispatch update cart thunk
         return this.props.updateSuitInCart(orderItem)
       }
     }
+    orderItem.fit = this.state.fit,
+    orderItem.size = this.state.size,
+    orderItem.length = this.state.length,
     this.props.addSuitToCart(orderItem);
   }
 
