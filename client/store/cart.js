@@ -96,6 +96,22 @@ export const checkoutGuestUser = (checkoutOrder) => {
   }
 }
 
+export const fetchGuestCart = (email) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.get(`/api/orders/cart`, {
+        headers: {
+          email: email
+        }
+      }
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   cart: {}

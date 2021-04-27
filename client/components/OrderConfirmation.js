@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { fetchGuestCart } from '../store/cart';
 
 //For testing render with dummy data
 // const cart = {
@@ -55,59 +56,79 @@ import {connect} from 'react-redux'
 //   ]
 // }
 
-const OrderConfirmation = (props) => {
-  const { cart } = props;
-  return (
-    <div>
-      <h1>
-        Order Confirmation #{cart.cart.id}
-      </h1>
-      <h2>
-        Thank you for shopping at Phillip's Suits!
-      </h2>
-      <p>An email confirmation has been sent to:</p>
-      <p>{cart.cart.email}</p>
-      <p>Your order will arrive shortly at:</p>
-      <p>{cart.cart.address}</p>
-      <h2>
-        Order Details
-      </h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product Name</th>
-            <th>Color</th>
-            <th>Fit</th>
-            <th>Size</th>
-            <th>Length</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-        {cart.cart.products.map((product) => {
-          return (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.color}</td>
-              <td>{product.order_details.fit}</td>
-              <td>{product.order_details.size}</td>
-              <td>{product.order_details.length}</td>
-              <td>{product.order_details.price}</td>
-              <td>{product.order_details.quantity}</td>
+class OrderConfirmation extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  // componentDidMount() {
+  //   if (!this.props.auth.id) {
+  //     const email = localStorage.getItem('email');
+  //     this.props.fetchGuestCart(email);
+  //     localStorage.clear();
+  //   }
+  // }
+
+  render() {
+    const { cart } = this.props
+    if (!cart.cart.id) return <div>No cart</div>
+    return (
+      <div>
+        <h1>
+          Order Confirmation #{cart.cart.id}
+        </h1>
+        <h2>
+          Thank you for shopping at Philip's Suits!
+        </h2>
+        <p>An email confirmation has been sent to:</p>
+        <p>{cart.cart.email}</p>
+        <p>Your order will arrive shortly at:</p>
+        <p>{cart.cart.address}</p>
+        <h2>
+          Order Details
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Color</th>
+              <th>Fit</th>
+              <th>Size</th>
+              <th>Length</th>
+              <th>Price</th>
+              <th>Quantity</th>
             </tr>
-          );
-        })}
-        </tbody>
-      </table>
-      
-      <p><strong>Order Total: </strong>${cart.cart.total_price}</p>
-    </div>
-  )
+          </thead>
+          <tbody>
+          {cart.cart.products.map((product) => {
+            return (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.color}</td>
+                <td>{product.order_details.fit}</td>
+                <td>{product.order_details.size}</td>
+                <td>{product.order_details.length}</td>
+                <td>{product.order_details.price}</td>
+                <td>{product.order_details.quantity}</td>
+              </tr>
+            );
+          })}
+          </tbody>
+        </table>
+
+        <p><strong>Order Total: </strong>${cart.cart.total_price}</p>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart
+  cart: state.cart,
+  auth: state.auth
 })
 
-export default connect(mapStateToProps, null)(OrderConfirmation)
+const mapDispatchToProps = (dispatch) => ({
+  fetchGuestCart: (email) => dispatch(fetchGuestCart(email))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderConfirmation)

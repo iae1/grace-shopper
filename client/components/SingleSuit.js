@@ -30,9 +30,9 @@ class SingleSuit extends Component {
     if (this.props.auth.id === undefined) {
       const itemDetails = {
         ...this.props.singleSuit,
-        // fit: this.state.fit,
-        // size: this.state.size,
-        // length: this.state.length,
+        fit: this.state.fit,
+        size: this.state.size,
+        length: this.state.length,
         quantity: this.state.quantity,
       };
       // if there is no user and no cart in local storage
@@ -100,7 +100,7 @@ class SingleSuit extends Component {
   }
 
   handleSubmit(e) {
-    if (this.auth.id) {
+    if (this.props.auth.id) {
       e.preventDefault();
 
       if (!this.state.fit || !this.state.size || !this.state.length) {
@@ -301,7 +301,13 @@ class SingleSuit extends Component {
           <button
             type='submit'
             className='add-to-cart'
-            onClick={this.addToCart}
+            onClick={(e) => {
+              if (this.props.auth.id) {
+                this.handleSubmit(e)
+              } else {
+                this.addToCart()
+              }
+            }}
           >
             Add to Cart
           </button>

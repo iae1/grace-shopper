@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { checkoutLoggedUser } from '../store/cart';
+import { checkoutLoggedUser, checkoutGuestUser } from '../store/cart';
 
 // global
 const token = window.localStorage.getItem('token');
@@ -20,63 +20,82 @@ export class Checkout extends React.Component{
     this.handleStateChange = this.handleStateChange.bind(this);
     this.validate = this.validate.bind(this)
   }
-  
+
   handleStateChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     })
   }
-  
+
   validate() {
     let nameError = ''
     let emailError = ''
     let addressError = ''
-    
+
     if (!this.state.name) {
       nameError = "Order must include name"
     }
-    
+
     if (!this.state.address) {
       addressError = "Order must include address"
     }
-    
+
     if (!this.state.email) {
       emailError = "Order must include email"
     }
-    
+
     if (nameError || addressError || emailError) {
       this.setState({nameError, addressError, emailError})
       return false
     }
-    
+
     return true
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
     const isValid = this.validate()
-    console.log('isValid-->', isValid)
     if (isValid) {
-      if (token) { // if the user is logged in
-        const address = this.state.address
+      const address = this.state.address;
+      const email = this.state.email;
+      if (this.props.auth.id) { // if the user is logged in
         this.props.checkoutLoggedUser({address, token})
         console.log('cart--->', this.props.cart)
-        this.props.history.push('/orderconfirmation')
+        // this.props.history.push('/orderconfirmation')
       } else {
         //need to pull cart off of local storage... waiting on morgan
+        const guestCart = JSON.parse(localStorage.getItem('cart'));
+        const cartItems = []
+        for (let i=0; i<guestCart.length; i++) {
+          cartItems.push({
+            quantity: parseInt(guestCart[i].quantity, 10),
+            fit: guestCart[i].fit,
+            size: guestCart[i].size,
+            length: guestCart[i].length,
+            productId: guestCart[i].id
+          })
+        }
+        console.log("cart items--->", cartItems)
+        this.props.checkoutGuestUser({email, address, cartItems})
+        console.log("guest cart--->", this.props.cart)
       }
+      this.props.history.push('/orderconfirmation')
     }
   }
-  
+
   render() {
-    console.log('this.props.cart.cart---?', this.props.cart.cart)
-    
-      let totalPrice = 0
-    if (this.props.cart.cart) {
+    let totalPrice = 0
+    let guestCart;
+    if (this.props.auth.id) {
       const products = this.props.cart.cart.products
       console.log('products--->', products)
       for (let i = 0; i < products.length; i++) {
         totalPrice += (products[i].price * products[i].order_details.quantity)
+      }
+    } else {
+      guestCart = JSON.parse(localStorage.getItem('cart'));
+      for (let i =0; i<guestCart.length; i++) {
+        totalPrice += guestCart[i].price
       }
     }
     // console.log('totalPrice', totalPrice)
@@ -84,8 +103,8 @@ export class Checkout extends React.Component{
       <React.Fragment>
         <div id='total-price'>
           Total Price: {
-          totalPrice > 0 
-          ? totalPrice
+          totalPrice > 0
+          ? `$${totalPrice}`
           : null
           }
         </div>
@@ -121,6 +140,7 @@ export class Checkout extends React.Component{
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
+    auth: state.auth
   };
 };
 
@@ -128,6 +148,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     checkoutLoggedUser: (info) => {
       dispatch(checkoutLoggedUser(info))
+    },
+    checkoutGuestUser: (info) => {
+      dispatch(checkoutGuestUser(info))
     }
   }
 }
