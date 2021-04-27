@@ -51,7 +51,7 @@ class SingleSuit extends Component {
         // convert object to an array
         // forEach to iterate through list of items
         // if current id matches an id in cart set to true
-        Object.keys(cart).forEach((item) => {
+        cart.forEach((item) => {
           if (item.id === itemDetails.id) isItemInCart = true;
         });
         // declare an empty cart
@@ -62,7 +62,7 @@ class SingleSuit extends Component {
           // update newCart with changes in quantity
           newCart = cart.map((item) => {
             if (item.id === itemDetails.id) {
-              item.Details.quantity =
+              itemDetails.quantity =
                 // all data is currently string
                 // coerce to number and add additional quantity
                 Number(item.quantity) + Number(itemDetails.quantity);
