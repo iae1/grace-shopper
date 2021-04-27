@@ -63,3 +63,18 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 })
+
+// POST route to create an order for guest checkout
+router.get('/cart', async (req, res, next) => {
+  try {
+    //create the cart for this guest
+    const cart = await Order.findOne({
+      where: {
+        email: req.headers.email
+      }
+    })
+    res.status(200).send(cart);
+  } catch (err) {
+    next(err);
+  }
+})

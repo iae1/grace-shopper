@@ -30,9 +30,9 @@ class SingleSuit extends Component {
     if (this.props.auth.id === undefined) {
       const itemDetails = {
         ...this.props.singleSuit,
-        // fit: this.state.fit,
-        // size: this.state.size,
-        // length: this.state.length,
+        fit: this.state.fit,
+        size: this.state.size,
+        length: this.state.length,
         quantity: this.state.quantity,
       };
       // if there is no user and no cart in local storage
@@ -51,7 +51,7 @@ class SingleSuit extends Component {
         // convert object to an array
         // forEach to iterate through list of items
         // if current id matches an id in cart set to true
-        Object.keys(cart).forEach((item) => {
+        cart.forEach((item) => {
           if (item.id === itemDetails.id) isItemInCart = true;
         });
         // declare an empty cart
@@ -62,7 +62,7 @@ class SingleSuit extends Component {
           // update newCart with changes in quantity
           newCart = cart.map((item) => {
             if (item.id === itemDetails.id) {
-              item.Details.quantity =
+              itemDetails.quantity =
                 // all data is currently string
                 // coerce to number and add additional quantity
                 Number(item.quantity) + Number(itemDetails.quantity);
@@ -100,7 +100,7 @@ class SingleSuit extends Component {
   }
 
   handleSubmit(e) {
-    if (this.auth.id) {
+    if (this.props.auth.id) {
       e.preventDefault();
 
       if (!this.state.fit || !this.state.size || !this.state.length) {
@@ -301,7 +301,13 @@ class SingleSuit extends Component {
           <button
             type='submit'
             className='add-to-cart'
-            onClick={this.addToCart}
+            onClick={(e) => {
+              if (this.props.auth.id) {
+                this.handleSubmit(e)
+              } else {
+                this.addToCart()
+              }
+            }}
           >
             Add to Cart
           </button>
