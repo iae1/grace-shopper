@@ -67,6 +67,19 @@ export const deleteItemInCart = (orderItem) => {
   }
 }
 
+export const checkoutLoggedUser = (checkoutOrder) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.put(`/api/users/cart`,
+      checkoutOrder
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   cart: {}

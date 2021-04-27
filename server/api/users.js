@@ -31,7 +31,7 @@ router.get('/cart', requireToken, userCart, async (req,res,next) => {
 })
 
 //PUT pending order (i.e., cart) route to checkout for logged in user
-router.put('/cart', requireToken, userCart, async (req,res,next) => {
+router.put('/cart', cartRequireToken, userCart, async (req,res,next) => {
   try {
     // checking out
     const { address } = req.body;
