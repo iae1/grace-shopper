@@ -56,35 +56,38 @@ import {connect} from 'react-redux'
 // }
 
 const OrderConfirmation = (props) => {
-  // const { cart } = props;
+  const { cart } = props;
   return (
     <div>
       <h1>
-        Order Confirmation #{cart.id}
+        Order Confirmation #{cart.cart.id}
       </h1>
       <h2>
         Thank you for shopping at Phillip's Suits!
       </h2>
       <p>An email confirmation has been sent to:</p>
-      <p>{cart.email}</p>
+      <p>{cart.cart.email}</p>
       <p>Your order will arrive shortly at:</p>
-      <p>{cart.address}</p>
+      <p>{cart.cart.address}</p>
       <h2>
         Order Details
       </h2>
       <table>
-        <tr>
-          <th>Product Name</th>
-          <th>Color</th>
-          <th>Fit</th>
-          <th>Size</th>
-          <th>Length</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-        {cart.products.map((product) => {
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Color</th>
+            <th>Fit</th>
+            <th>Size</th>
+            <th>Length</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+        {cart.cart.products.map((product) => {
           return (
-            <tr>
+            <tr key={product.id}>
               <td>{product.name}</td>
               <td>{product.color}</td>
               <td>{product.order_details.fit}</td>
@@ -95,8 +98,10 @@ const OrderConfirmation = (props) => {
             </tr>
           );
         })}
+        </tbody>
       </table>
-      <p><strong>Order Total: </strong>${cart.total_price}</p>
+      
+      <p><strong>Order Total: </strong>${cart.cart.total_price}</p>
     </div>
   )
 }

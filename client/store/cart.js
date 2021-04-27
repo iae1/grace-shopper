@@ -54,6 +54,48 @@ export const updateProductInCart = (orderItem) => {
   }
 }
 
+export const deleteItemInCart = (orderItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.delete(`/api/users/cart/${orderItem.id}`,{
+        headers: {
+          authorization: orderItem.token
+        }
+      }
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const checkoutLoggedUser = (checkoutOrder) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.put(`/api/users/cart`,
+      checkoutOrder
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const checkoutGuestUser = (checkoutOrder) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.post(`/api/orders`,
+      checkoutOrder
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   cart: {}

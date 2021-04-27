@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OrderConfirmation from './OrderConfirmation';
-import { fetchCart, updateProductInCart } from '../store/cart';
+import { deleteItemInCart, updateProductInCart } from '../store/cart';
 
 // global
 
@@ -35,7 +35,8 @@ export class Cart extends React.Component {
 
   //to remove the item completely
   handleRemoveItem(id) {
-    this.props.removeItem(id, token);
+    const orderItem = { id, token }
+    this.props.removeItem(orderItem);
   }
 
   // how do we want to handle quantity adjustmens?
@@ -43,14 +44,12 @@ export class Cart extends React.Component {
 
   //to add the quantity
   handleQuantity(e) {
-    console.log('djbcj', e.target);
     if (e.target) {
       let orderItem = {
         id: e.target.name,
         quantity: parseInt(e.target.value, 10),
         token,
       };
-      console.log('item', orderItem);
       this.props.updateProductInCart(orderItem);
     }
   }
@@ -69,6 +68,7 @@ export class Cart extends React.Component {
   //     return updateProductInCart(orderItem);
   //   }
   // }
+  
 
   render() {
     console.log(this.props);
@@ -148,16 +148,9 @@ export class Cart extends React.Component {
                     <b>Price: ${item.price}</b>
                   </p>
                   <p>
-                    <b>Quantity: {item.quantity}</b>
+                    <b>Quantity: {item.order_details.quantity}</b>
                   </p>
                   <div className='add-remove'>
-                    <Link to='/cart'>
-                      <i
-                        className='productQuantity'
-                        onClick={() => {
-                          this.handleQuantity(item.id);
-                        }}
-                      >
                         <select name={item.id} onChange={this.handleQuantity}>
                           <option value='1'>1</option>
                           <option value='2'>2</option>
@@ -166,8 +159,6 @@ export class Cart extends React.Component {
                           <option value='5'>5</option>
                           <option value='6'>6</option>
                         </select>
-                      </i>
-                    </Link>
                   </div>
                   <button
                     className='removeButton'
@@ -179,20 +170,21 @@ export class Cart extends React.Component {
                   </button>
                 </div>
               </li>
-            );
-          })}
+            </div>
+          </React.Fragment>
+          )
+                  
+        )
+        }
+          <div>
+            <Link to={'/checkout'}>
+              <h4>Checkout</h4>
+            </Link>
+          </div>;
         </div>
-      ) : (
-        <p>Cart is empty. Try adding something.</p>
-      );
-      return (
-        <div>
-          <Link to={'/checkout'}>
-            <h4>Checkout</h4>
-          </Link>
-        </div>
-      );
-    }
+    ) : (
+      <p>Cart is empty. Try adding something.</p>
+    );
   }
 }
 
@@ -205,8 +197,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeItem: (id) => {
-      dispatch(removeItem(id));
+    removeItem: (orderItem) => {
+      dispatch(deleteItemInCart(orderItem));
     },
     updateProductInCart: (orderItem) => {
       dispatch(updateProductInCart(orderItem));

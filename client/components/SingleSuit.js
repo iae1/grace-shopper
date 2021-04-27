@@ -105,9 +105,9 @@ class SingleSuit extends Component {
     if (!this.state.fit || !this.state.size || !this.state.length) {
       alert('please select an option for each sizing field!');
       return;
-    }
-    const token = window.localStorage.getItem('token');
-    const numberedQuantity = parseInt(this.state.quantity, 10);
+    };
+    const token = window.localStorage.getItem('token')
+    const numberedQuantity = parseInt(this.state.quantity, 10)
 
     const orderItem = {
       id: this.props.singleSuit.id,
@@ -125,7 +125,8 @@ class SingleSuit extends Component {
         // orderItem.length === this.props.cart[i].length
       ) {
         //dispatch update cart thunk
-        return this.props.updateSuitInCart(orderItem);
+        orderItem.quantity = numberedQuantity + this.props.cart.cart.products[i].order_details.quantity
+        return this.props.updateSuitInCart(orderItem)
       }
     }
     (orderItem.fit = this.state.fit),
@@ -134,7 +135,8 @@ class SingleSuit extends Component {
       this.props.addSuitToCart(orderItem);
   }
 
-  handleChange(e) {
+
+  handleChange (e) {
     this.setState({
       [e.target.name]: e.target.value,
     });

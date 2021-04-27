@@ -31,7 +31,7 @@ router.get('/cart', requireToken, userCart, async (req,res,next) => {
 })
 
 //PUT pending order (i.e., cart) route to checkout for logged in user
-router.put('/cart', requireToken, userCart, async (req,res,next) => {
+router.put('/cart', cartRequireToken, userCart, async (req,res,next) => {
   try {
     // checking out
     const { address } = req.body;
@@ -117,9 +117,8 @@ router.delete('/cart/:productId', requireToken, userCart, orderDetail, async (re
 router.put('/cart/:productId', cartRequireToken, userCart, orderDetail, async (req,res,next) => {
   try {
     if (req.orderDetail) {
-      const newQuantity = req.body.quantity +req.orderDetail.quantity;
       await req.orderDetail.update({
-        quantity: newQuantity,
+        quantity: req.body.quantity,
         fit: req.body.fit,
         size: req.body.size,
         length: req.body.length
