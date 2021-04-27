@@ -102,9 +102,9 @@ export class Checkout extends React.Component{
     return (
       <React.Fragment>
         <div id='total-price'>
-          Total Price: {
-          totalPrice > 0
-          ? `$${totalPrice}`
+          Total Price: ${
+          totalPrice > 0 
+          ? totalPrice
           : null
           }
         </div>

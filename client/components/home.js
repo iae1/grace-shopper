@@ -17,8 +17,8 @@ export class Home extends Component {
       <div className="homepage-text">
         <h1>Welcome to our shop!</h1>
         <p>
-          Philip's suits was founded in 2021 by a group of young creatives seeking to cash in on the legacy of a man who had recently passed away. Although Prince Philip was of dubious character, he nevertheless was very handsome and had a great sense of style. For that, he honor his legacy, and try ourselves to make as much money as we can, while not sullying his mildly tarnished name.
-        </p>
+          Philip's suits was founded in 2021 by a group of young creatives seeking to cash in on the legacy of a man who had recently died. Although Prince Philip was of dubious moral character, he was very handsome and had an impeccable sense of style. For that, we honor his legacy, and try ourselves to profit as much as we are able off of his already tarnished name
+. We hope that you enjoy your experience shopping with us. For Prince Philip's sake- and your own.      </p>
       </div>
     )
   }
