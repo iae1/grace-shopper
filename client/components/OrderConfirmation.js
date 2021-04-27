@@ -73,18 +73,21 @@ const OrderConfirmation = (props) => {
         Order Details
       </h2>
       <table>
-        <tr>
-          <th>Product Name</th>
-          <th>Color</th>
-          <th>Fit</th>
-          <th>Size</th>
-          <th>Length</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Color</th>
+            <th>Fit</th>
+            <th>Size</th>
+            <th>Length</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
         {cart.cart.products.map((product) => {
           return (
-            <tr>
+            <tr key={product.id}>
               <td>{product.name}</td>
               <td>{product.color}</td>
               <td>{product.order_details.fit}</td>
@@ -95,7 +98,9 @@ const OrderConfirmation = (props) => {
             </tr>
           );
         })}
+        </tbody>
       </table>
+      
       <p><strong>Order Total: </strong>${cart.cart.total_price}</p>
     </div>
   )

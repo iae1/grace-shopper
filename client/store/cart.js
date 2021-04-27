@@ -57,8 +57,11 @@ export const updateProductInCart = (orderItem) => {
 export const deleteItemInCart = (orderItem) => {
   return async (dispatch) => {
     try {
-      const { data: cart } = await axios.delete(`/api/users/cart/${orderItem.id}`,
-      orderItem
+      const { data: cart } = await axios.delete(`/api/users/cart/${orderItem.id}`,{
+        headers: {
+          authorization: orderItem.token
+        }
+      }
       )
       dispatch(setCart(cart))
     } catch (error) {
