@@ -14,10 +14,10 @@ export class Home extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="homepage-text">
         <h1>Welcome to our shop!</h1>
         <p>
-          Please buy our stuff!
+          Philip's suits was founded in 2021 by a group of young creatives seeking to cash in on the legacy of a man who had recently passed away. Although Prince Philip was of dubious character, he nevertheless was very handsome and had a great sense of style. For that, he honor his legacy, and try ourselves to make as much money as we can, while not sullying his mildly tarnished name.
         </p>
       </div>
     )

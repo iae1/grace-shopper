@@ -8,88 +8,81 @@ const {
 //Products array to seed
 const products = [
   {
-    name: 'Phillip',
+    name: 'The Phillip',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://images.theconversation.com/files/167917/original/file-20170504-21608-101tjet.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip',
     color: 'Grey',
     price: 700,
     description: 'An iconic suit.',
   },
   {
-    name: 'Phillip',
+    name: 'The Phillip',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
     color: 'Navy Blue',
     price: 700,
     description: 'An iconic suit.',
   },
   {
-    name: 'George',
+    name: 'The George',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://static.onecms.io/wp-content/uploads/sites/20/2020/07/22/prince-philip-3-2000.jpg',
     color: 'Royal Blue',
     price: 650,
     description: 'A new fit on an iconic suit.',
   },
   {
-    name: 'Harry',
+    name: 'The Harry',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://images.vogue.it/gallery/41182/Big/7ad6f6cd-0218-4e09-a24e-caee0b1bef35.jpg',
     color: 'Black',
     price: 650,
     description: 'The ultimate party suit.',
   },
   {
-    name: 'James',
+    name: 'The James',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'http://1.bp.blogspot.com/-qyp6coHRQ1k/VpIMEbCwHFI/AAAAAAAAGa8/1Agkaj-Z3g0/s1600/prince_philip_best_dressed_tweed_pig_1.jpg',
     color: 'Khaki',
     price: 600,
     description: 'A suit for the summer.',
   },
   {
-    name: 'Henry',
+    name: 'The Henry',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://c8.alamy.com/comp/K7D7A9/photo-must-be-credited-kate-greenalpha-press-079965-20042016-prince-K7D7A9.jpg',
     color: 'Charcoal',
     price: 600,
     description: 'Go for smokey and smoldering.',
   },
   {
-    name: 'Charles',
+    name: 'The Charles',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://cdn.images.express.co.uk/img/dynamic/106/590x/Prince-Philip-and-the-Queen-1138436.jpg?r=1560243634147',
     color: 'Olive',
     price: 600,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'John',
+    name: 'The John',
     category: 'Suit',
     imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+      'https://i.pinimg.com/originals/3d/71/f2/3d71f2981048115643a12bb2b1e3b211.jpg',
     color: 'Tan',
     price: 600,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Judas',
+    name: 'The Judas',
     category: 'Suit',
     imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+      'https://images.vogue.it/gallery/41182/Big/7ad6f6cd-0218-4e09-a24e-caee0b1bef35.jpg',
     color: 'Ink Black',
     price: 700,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Paul',
+    name: 'The Paul',
     category: 'Suit',
     imageUrl:
       'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
@@ -98,46 +91,42 @@ const products = [
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Juan',
+    name: 'The Juan',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://images.vogue.it/gallery/41182/Big/75e3a442-1095-4738-b6b8-a489016c1779.jpg',
     color: 'Grey',
     price: 700,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Morgan',
+    name: 'The Morgan',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
-    color: 'Emerald',
+    imageUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-3428273-1617969984.jpg?crop=0.759xw:1.00xh;0.197xw,0&resize=640:*',
+    color: 'Light Grey',
     price: 700,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Isaac',
+    name: 'The Isaac',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+    imageUrl: 'https://blog.samuel-windsor.co.uk/wp-content/uploads/2018/02/SWUK-prince-philip-the-crown.jpg',
     color: 'Blue',
     price: 700,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Nick',
+    name: 'The Nick',
     category: 'Suit',
-    imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
-    color: 'Black',
+    imageUrl: 'https://images.vogue.it/gallery/41182/Big/bfb4e655-4924-4ade-a4d1-d5d63d075fa7.jpg',
+    color: 'Brown',
     price: 700,
     description: 'Money on your mind? Dress like it.',
   },
   {
-    name: 'Winston',
+    name: 'The Winston',
     category: 'Suit',
     imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+      'https://media.gq.com/photos/59a5f50671cf50240231b7e3/1:1/w_1939,h_1939,c_limit/barack-obama-tan-suit-3.jpg',
     color: 'Tan',
     price: 600,
     description: 'Money on your mind? Dress like it.',
@@ -164,7 +153,7 @@ const products = [
     name: 'The Loiterer',
     category: 'Suit',
     imageUrl:
-      'https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/3/32/Lancering_Invictus_Games_2020-7_%28cropped%29.jpg',
     color: 'Light Gray',
     price: 600,
     description: 'Money on your mind? Dress like it.',

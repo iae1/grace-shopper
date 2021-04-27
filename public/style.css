@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 a {
@@ -46,4 +47,31 @@ form button {
 
 .add-to-cart {
   padding: 0.5rem 2rem;
+}
+
+.all-suits {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.eachSuit {
+  margin: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: lightblue;
+  padding: 2rem;
+}
+
+li {
+  list-style: none;
+  background-color: lightgrey;
+  margin: 2rem;
+  width: 50%;
+}
+
+.homepage-text {
+  margin: 1rem 10rem;
 }
