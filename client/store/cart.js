@@ -80,6 +80,19 @@ export const checkoutLoggedUser = (checkoutOrder) => {
   }
 }
 
+export const checkoutGuestUser = (checkoutOrder) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.post(`/api/orders`,
+      checkoutOrder
+      )
+      dispatch(setCart(cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initState = {
   cart: {}
