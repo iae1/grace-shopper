@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addToCart, fetchSingleSuit } from "../store/suits";
-import { addToCartThunk } from "../store/suits";
-import { addProductToCart, updateProductInCart } from "../store/cart"
+import { addToCart, fetchSingleSuit } from '../store/suits';
+import { addToCartThunk } from '../store/suits';
+import { addProductToCart, updateProductInCart } from '../store/cart';
 
 class SingleSuit extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class SingleSuit extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addToCart = this.addToCart.bind(this);
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -27,55 +27,57 @@ class SingleSuit extends Component {
   addToCart() {
     // grab a shallow copy of state
     // set quantity to the current state
-    const itemDetails = {
-      ...this.props.singleSuit,
-      // fit: this.state.fit,
-      // size: this.state.size,
-      // length: this.state.length,
-      quantity: this.state.quantity,
-    };
-    // if there is no user and no cart in local storage
-    if (!localStorage.cart) {
-      // call localStorage setItem('cart')
-      // convert item details to string and attach to cart
-      localStorage.setItem('cart', JSON.stringify([itemDetails]));
-      console.log(localStorage);
-    } else {
-      // call localStorage getItem('cart')
-      // convert the string into a JSON object
-      let cart = JSON.parse(localStorage.getItem('cart'));
-      // check to see if item is already in cart
-      // default false
-      let isItemInCart = false;
-      // convert object to an array
-      // forEach to iterate through list of items
-      // if current id matches an id in cart set to true
-      Object.keys(cart).forEach((item) => {
-        if (item.id === itemDetails.id) isItemInCart = true;
-      });
-      // declare an empty cart
-      let newCart = [];
-      // if item is in cart
-      // map through the products
-      if (isItemInCart) {
-        // update newCart with changes in quantity
-        newCart = cart.map((item) => {
-          if (item.id === itemDetails.id) {
-            item.quantity =
-              // all data is currently string
-              // coerce to number and add additional quantity
-              Number(item.quantity) + Number(itemDetails.quantity);
-          }
-          // if false add the item to the array
-          return item;
-        });
+    if (this.props.auth.id === undefined) {
+      const itemDetails = {
+        ...this.props.singleSuit,
+        // fit: this.state.fit,
+        // size: this.state.size,
+        // length: this.state.length,
+        quantity: this.state.quantity,
+      };
+      // if there is no user and no cart in local storage
+      if (!localStorage.cart) {
+        // call localStorage setItem('cart')
+        // convert item details to string and attach to cart
+        localStorage.setItem('cart', JSON.stringify([itemDetails]));
+        console.log(localStorage);
       } else {
-        // otherwise simply push the item into the cart
-        cart.push(itemDetails);
-        // update newCart value
-        newCart = cart;
+        // call localStorage getItem('cart')
+        // convert the string into a JSON object
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        // check to see if item is already in cart
+        // default false
+        let isItemInCart = false;
+        // convert object to an array
+        // forEach to iterate through list of items
+        // if current id matches an id in cart set to true
+        Object.keys(cart).forEach((item) => {
+          if (item.id === itemDetails.id) isItemInCart = true;
+        });
+        // declare an empty cart
+        let newCart = [];
+        // if item is in cart
+        // map through the products
+        if (isItemInCart) {
+          // update newCart with changes in quantity
+          newCart = cart.map((item) => {
+            if (item.id === itemDetails.id) {
+              item.Details.quantity =
+                // all data is currently string
+                // coerce to number and add additional quantity
+                Number(item.quantity) + Number(itemDetails.quantity);
+            }
+            // if false add the item to the array
+            return item;
+          });
+        } else {
+          // otherwise simply push the item into the cart
+          cart.push(itemDetails);
+          // update newCart value
+          newCart = cart;
+        }
+        localStorage.setItem('cart', JSON.stringify(newCart));
       }
-      localStorage.setItem('cart', JSON.stringify(newCart));
     }
   }
 
@@ -94,7 +96,7 @@ class SingleSuit extends Component {
       this.setState({
         [e.target.name]: e.target.value,
       });
-    };
+    }
   }
 
   handleSubmit(e) {
@@ -103,17 +105,17 @@ class SingleSuit extends Component {
     if (!this.state.fit || !this.state.size || !this.state.length) {
       alert('please select an option for each sizing field!');
       return;
-    };
-    const token = window.localStorage.getItem('token')
-    const numberedQuantity = parseInt(this.state.quantity, 10)
-    
+    }
+    const token = window.localStorage.getItem('token');
+    const numberedQuantity = parseInt(this.state.quantity, 10);
+
     const orderItem = {
       id: this.props.singleSuit.id,
       quantity: numberedQuantity,
-      token
+      token,
     };
 
-    for (let i = 0; i < this.props.cart.cart.products.length; i++){
+    for (let i = 0; i < this.props.cart.cart.products.length; i++) {
       if (
         this.props.singleSuit.id === this.props.cart.cart.products[i].id
         //the following lineas are only necessary if size, fit and length are allowed to be variable for same product in an order
@@ -121,18 +123,18 @@ class SingleSuit extends Component {
         // orderItem.fit === this.props.cart[i].fit &&
         // orderItem.size === this.props.cart[i].size &&
         // orderItem.length === this.props.cart[i].length
-        ) {
+      ) {
         //dispatch update cart thunk
-        return this.props.updateSuitInCart(orderItem)
+        return this.props.updateSuitInCart(orderItem);
       }
     }
-    orderItem.fit = this.state.fit,
-    orderItem.size = this.state.size,
-    orderItem.length = this.state.length,
-    this.props.addSuitToCart(orderItem);
+    (orderItem.fit = this.state.fit),
+      (orderItem.size = this.state.size),
+      (orderItem.length = this.state.length),
+      this.props.addSuitToCart(orderItem);
   }
-  
-  handleChange (e) {
+
+  handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -283,13 +285,13 @@ class SingleSuit extends Component {
 
           <br />
           <br />
-          <select name="quantity" onChange={this.handleChange}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+          <select name='quantity' onChange={this.handleChange}>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
           </select>
           <button
             type='submit'
@@ -298,7 +300,6 @@ class SingleSuit extends Component {
           >
             Add to Cart
           </button>
-          
         </form>
       </div>
     );
@@ -307,13 +308,14 @@ class SingleSuit extends Component {
 
 const mapStateToProps = (state) => ({
   singleSuit: state.suits.singleSuit,
-  cart: state.cart
+  cart: state.cart,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   loadSingleSuit: (suitId) => dispatch(fetchSingleSuit(suitId)),
   addSuitToCart: (orderItem) => dispatch(addProductToCart(orderItem)),
-  updateSuitInCart: (orderItem) => dispatch(updateProductInCart(orderItem))
+  updateSuitInCart: (orderItem) => dispatch(updateProductInCart(orderItem)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleSuit);

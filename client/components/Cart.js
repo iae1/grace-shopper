@@ -5,7 +5,8 @@ import OrderConfirmation from './OrderConfirmation';
 import { fetchCart, updateProductInCart } from '../store/cart';
 
 // global
-const token = window.localStorage.getItem('token');
+
+let guestCart = [];
 
 export class Cart extends React.Component {
   constructor() {
@@ -15,6 +16,15 @@ export class Cart extends React.Component {
   }
 
   componentDidMount() {
+    // if user is not logged in there will be no token in local storage
+    if (this.props.auth.id === undefined) {
+      if (
+        JSON.parse(localStorage.getItem('cart')) &&
+        JSON.parse(localStorage.getItem('cart')).length
+      ) {
+        guestCart = JSON.parse(localStorage.getItem('cart'));
+      }
+    }
     // const token = window.localStorage.getItem('token');
     // if (token) {
     //   this.props.fetchCart(token);
@@ -22,7 +32,6 @@ export class Cart extends React.Component {
     //   const itemsInCart = this.props.cart.cart.products;
     // }
   }
-  // else localStorage.getItem('cart')
 
   //to remove the item completely
   handleRemoveItem(id) {
@@ -64,33 +73,74 @@ export class Cart extends React.Component {
   render() {
     console.log(this.props);
     const { cart } = this.props;
-    // const { products } = cart;
-    // const { cart } = this.props;
-    //   return (
-    //       <div>
-    //         <h1>Cart</h1>
-    //         {!cart ? (
-    //           <p>Cart is empty. Try adding something.</p>
-    //         ) : (
-    //           <div>
-    //             <h1>hello</h1>
-    //           </div>
-    //         )}
-    //       </div>
-    //   );
-    // }
-
-    // Morgan's code below - this was breaking, but probably better to use overall
-
-    // render() {
-    return cart.cart.products && cart.cart.products.length ? (
-      cart.cart.products.map((item) => {
-        return (
-          <React.Fragment>
-            <div>
+    if (this.props.auth.id) {
+      return cart.cart.products && cart.cart.products.length ? (
+        cart.cart.products.map((item) => {
+          return (
+            <React.Fragment>
+              <div>
+                <li className='itemCollection' key={item.id}>
+                  <div className='itemImg'>
+                    <img src={item.imageUrl} width='360px' length='360px' />
+                  </div>
+                  <div className='itemDesc'>
+                    <span className='name'>{item.name}</span>
+                    <p>
+                      <b>Price: ${item.price}</b>
+                    </p>
+                    <p>
+                      <b>Quantity: {item.quantity}</b>
+                    </p>
+                    <div className='add-remove'>
+                      <Link to='/cart'>
+                        <i
+                          className='productQuantity'
+                          onClick={() => {
+                            this.handleQuantity(item.id);
+                          }}
+                        >
+                          <select name={item.id} onChange={this.handleQuantity}>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                            <option value='4'>4</option>
+                            <option value='5'>5</option>
+                            <option value='6'>6</option>
+                          </select>
+                        </i>
+                      </Link>
+                    </div>
+                    <button
+                      className='removeButton'
+                      onClick={() => {
+                        this.handleRemoveItem(item.id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              </div>
+            </React.Fragment>
+          );
+        })
+      ) : (
+        <p>Cart is empty. Try adding something.</p>
+      );
+    } else {
+      let cart = JSON.parse(localStorage.getItem('cart'));
+      return cart && cart.length ? (
+        <div>
+          {cart.map((item) => {
+            console.log(cart);
+            return (
               <li className='itemCollection' key={item.id}>
                 <div className='itemImg'>
-                  <img src={item.imageUrl} />
+                  <img
+                    src='https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg'
+                    width='360px'
+                    height='360px'
+                  />
                 </div>
                 <div className='itemDesc'>
                   <span className='name'>{item.name}</span>
@@ -129,24 +179,27 @@ export class Cart extends React.Component {
                   </button>
                 </div>
               </li>
-            </div>
-          </React.Fragment>
-        );
-      })
-    ) : (
-      <p>Cart is empty. Try adding something.</p>
-    );
-    // <div>
-    //   <Link to={'/checkout'}>
-    //     <h4>Checkout</h4>
-    //   </Link>
-    // </div>;
+            );
+          })}
+        </div>
+      ) : (
+        <p>Cart is empty. Try adding something.</p>
+      );
+      return (
+        <div>
+          <Link to={'/checkout'}>
+            <h4>Checkout</h4>
+          </Link>
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
+    auth: state.auth,
   };
 };
 
