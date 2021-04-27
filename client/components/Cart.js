@@ -35,7 +35,8 @@ export class Cart extends React.Component {
 
   //to remove the item completely
   handleRemoveItem(id) {
-    const orderItem = { id, token }
+    const token = localStorage.getItem('token');
+    const orderItem = { id, token };
     this.props.removeItem(orderItem);
   }
 
@@ -44,6 +45,7 @@ export class Cart extends React.Component {
 
   //to add the quantity
   handleQuantity(e) {
+    const token = localStorage.getItem('token');
     if (e.target) {
       let orderItem = {
         id: e.target.name,
@@ -68,18 +70,17 @@ export class Cart extends React.Component {
   //     return updateProductInCart(orderItem);
   //   }
   // }
-  
 
   render() {
     console.log(this.props);
     const { cart } = this.props;
     if (this.props.auth.id) {
       return cart.cart.products && cart.cart.products.length ? (
-        cart.cart.products.map((item) => {
-          return (
-            <React.Fragment>
+        <div>
+          {cart.cart.products.map((item) => (
+            <React.Fragment key={item.id}>
               <div>
-                <li className='itemCollection' key={item.id}>
+                <li className='itemCollection'>
                   <div className='itemImg'>
                     <img src={item.imageUrl} width='360px' length='360px' />
                   </div>
@@ -89,7 +90,7 @@ export class Cart extends React.Component {
                       <b>Price: ${item.price}</b>
                     </p>
                     <p>
-                      <b>Quantity: {item.quantity}</b>
+                      <b>Quantity: {item.order_details.quantity}</b>
                     </p>
                     <div className='add-remove'>
                       <Link to='/cart'>
@@ -122,8 +123,13 @@ export class Cart extends React.Component {
                 </li>
               </div>
             </React.Fragment>
-          );
-        })
+          ))}
+          <div>
+            <Link to={'/checkout'}>
+              <h4>Checkout</h4>
+            </Link>
+          </div>
+        </div>
       ) : (
         <p>Cart is empty. Try adding something.</p>
       );
@@ -131,16 +137,11 @@ export class Cart extends React.Component {
       let cart = JSON.parse(localStorage.getItem('cart'));
       return cart && cart.length ? (
         <div>
-          {cart.map((item) => {
-            console.log(cart);
-            return (
-              <li className='itemCollection' key={item.id}>
+          {cart.map((item) => (
+            <React.Fragment key={item.id}>
+              <li className='itemCollection'>
                 <div className='itemImg'>
-                  <img
-                    src='https://cdn.entertainmentdaily.com/2020/07/22132320/prince-philip-1-scaled.jpg'
-                    width='360px'
-                    height='360px'
-                  />
+                  <img src={item.imageUrl} width='360px' height='360px' />
                 </div>
                 <div className='itemDesc'>
                   <span className='name'>{item.name}</span>
@@ -148,17 +149,17 @@ export class Cart extends React.Component {
                     <b>Price: ${item.price}</b>
                   </p>
                   <p>
-                    <b>Quantity: {item.order_details.quantity}</b>
+                    <b>Quantity: {item.quantity}</b>
                   </p>
                   <div className='add-remove'>
-                        <select name={item.id} onChange={this.handleQuantity}>
-                          <option value='1'>1</option>
-                          <option value='2'>2</option>
-                          <option value='3'>3</option>
-                          <option value='4'>4</option>
-                          <option value='5'>5</option>
-                          <option value='6'>6</option>
-                        </select>
+                    <select name={item.id} onChange={this.handleQuantity}>
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                      <option value='6'>6</option>
+                    </select>
                   </div>
                   <button
                     className='removeButton'
@@ -170,21 +171,18 @@ export class Cart extends React.Component {
                   </button>
                 </div>
               </li>
-            </div>
-          </React.Fragment>
-          )
-                  
-        )
-        }
+            </React.Fragment>
+          ))}
           <div>
             <Link to={'/checkout'}>
               <h4>Checkout</h4>
             </Link>
-          </div>;
+          </div>
         </div>
-    ) : (
-      <p>Cart is empty. Try adding something.</p>
-    );
+      ) : (
+        <p>Cart is empty. Try adding something.</p>
+      );
+    }
   }
 }
 
