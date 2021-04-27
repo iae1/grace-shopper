@@ -135,6 +135,7 @@ export class Cart extends React.Component {
       );
     } else {
       let cart = JSON.parse(localStorage.getItem('cart'));
+      console.log(cart)
       return cart && cart.length ? (
         <div>
           {cart.map((item) => (
