@@ -142,7 +142,7 @@ export class Cart extends React.Component {
                     <button
                       className='removeButton'
                       onClick={() => {
-                        this.handleRemoveItem('cart', item.id);
+                        this.handleRemoveItem(item.id);
                       }}
                     >
                       Remove
