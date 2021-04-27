@@ -12,15 +12,15 @@ class AllSuits extends Component {
     const { suits } = this.props
 
     return (
-      <div>
+      <div className="all-suits">
         {!suits || !suits.length ? (
           <h3>NO SUITS!</h3>
         ) : (
           suits.map((s) => (
-            <div key={s.id}>
-              <h4>
-                <Link to={`/suits/${s.id}`}>{s.name}</Link>
-              </h4>
+            <div className="eachSuit" key={s.id}>
+              <img src={s.imageUrl} width="200px" height="300px" />
+              <h3><Link to={`/suits/${s.id}`}>{s.name} - {s.color}</Link></h3>
+              <h4>${s.price}</h4>
             </div>
           ))
         )}
