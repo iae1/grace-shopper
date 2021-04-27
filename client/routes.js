@@ -7,6 +7,7 @@ import AllSuits from './components/AllSuits';
 import SingleSuit from './components/SingleSuit';
 import Cart from './components/Cart';
 import { me } from './store';
+import OrderConfirmation from './components/OrderConfirmation';
 
 /**
  * COMPONENT
@@ -37,6 +38,7 @@ class Routes extends Component {
             <Route path='/suits/:id' component={SingleSuit} />
             <Route exact path='/suits' component={AllSuits} />
             <Route exact path='/cart' component={Cart} />
+            <Route exact path='/orderconfirmation' component={OrderConfirmation} />
           </Switch>
         )}
       </div>
