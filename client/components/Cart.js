@@ -6,8 +6,6 @@ import { deleteItemInCart, updateProductInCart } from '../store/cart';
 
 // global
 
-let guestCart = [];
-
 export class Cart extends React.Component {
   constructor() {
     super();
@@ -22,7 +20,7 @@ export class Cart extends React.Component {
         JSON.parse(localStorage.getItem('cart')) &&
         JSON.parse(localStorage.getItem('cart')).length
       ) {
-        guestCart = JSON.parse(localStorage.getItem('cart'));
+        JSON.parse(localStorage.getItem('cart'));
       }
     }
     // const token = window.localStorage.getItem('token');
@@ -40,6 +38,18 @@ export class Cart extends React.Component {
     this.props.removeItem(orderItem);
   }
 
+  handleGuestRemoveItem(idx) {
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === idx) {
+        cart.splice(i, 1);
+      }
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    // forces a rerender even though state hasn't changed
+    this.forceUpdate();
+  }
+
   // how do we want to handle quantity adjustmens?
   // within the backend like total price? or via the handlers
 
@@ -55,6 +65,24 @@ export class Cart extends React.Component {
       this.props.updateProductInCart(orderItem);
     }
   }
+
+  // handleGuestQuantity(e) {
+  //   let cart = JSON.parse(localStorage.getItem('cart'));
+  //   console.log('can you read cart', cart);
+  //   for (let i = 0; i < cart.length; i++) {
+  //     let orderItem = {
+
+  //     }
+  //     if (cart[i].id === idx) {
+  //       cart[i].quanity = idx.quantity;
+  //       console.log('am i in cart', cart);
+  //     }
+  //   }
+  // }
+  //   localStorage.setItem('cart', JSON.stringify(cart));
+  //   // forces a rerender even though state hasn't changed
+  //   this.forceUpdate();
+  // }
   // let orderItem = {};
   // let productsInCart = this.props.cart.cart.products;
   // for (let i = 0; i < productsInCart.length; i++) {
@@ -114,7 +142,7 @@ export class Cart extends React.Component {
                     <button
                       className='removeButton'
                       onClick={() => {
-                        this.handleRemoveItem(item.id);
+                        this.handleRemoveItem('cart', item.id);
                       }}
                     >
                       Remove
@@ -152,7 +180,7 @@ export class Cart extends React.Component {
                     <b>Quantity: {item.quantity}</b>
                   </p>
                   <div className='add-remove'>
-                    <select name={item.id} onChange={this.handleQuantity}>
+                    <select name={item.id} onChange={this.handleGuestQuantity}>
                       <option value='1'>1</option>
                       <option value='2'>2</option>
                       <option value='3'>3</option>
@@ -164,7 +192,7 @@ export class Cart extends React.Component {
                   <button
                     className='removeButton'
                     onClick={() => {
-                      this.handleRemoveItem(item.id);
+                      this.handleGuestRemoveItem(item.id);
                     }}
                   >
                     Remove
